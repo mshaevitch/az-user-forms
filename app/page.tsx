@@ -11,6 +11,15 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Input } from '@/components/ui/input'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -22,6 +31,9 @@ const formSchema = z.object({
   }),
   msg: z.string().min(2, {
     message: "Message must be at least 2 characters.",
+  }),
+  department: z.string({
+    required_error: "Department is required.",
   }),
 })
 
@@ -37,23 +49,24 @@ export default function Home() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const name = values.username
-    const message = values.msg
-    try {
-      const res = await fetch('/api/hello', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, message }),
-      })
+    console.log(values);
+    // const name = values.username
+    // const message = values.msg
+    // try {
+    //   const res = await fetch('/api/hello', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ name, message }),
+    //   })
       
-      const data = await res.json();
-      setResponse(data.message);
-    } catch (error) {
-      console.error('Error:', error)
-      setResponse('Error occurred while sending message');
-    }
+    //   const data = await res.json();
+    //   setResponse(data.message);
+    // } catch (error) {
+    //   console.error('Error:', error)
+    //   setResponse('Error occurred while sending message');
+    // }
   }
  
   return (
@@ -79,9 +92,9 @@ export default function Home() {
                   <FormControl>
                     <Input placeholder="Enter your name" {...field} />
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Please enter your name.
-                  </FormDescription>
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -95,9 +108,36 @@ export default function Home() {
                   <FormControl>
                     <Input placeholder="Enter a message" {...field} />
                   </FormControl>
-                  <FormDescription>
+                  {/* <FormDescription>
                     Please enter a message.
-                  </FormDescription>
+                  </FormDescription> */}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="department"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Department</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a department" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="hr">Human Resources</SelectItem>
+                      <SelectItem value="finance">Finance</SelectItem>
+                      <SelectItem value="marketing">Marketing</SelectItem>
+                      <SelectItem value="sales">Sales</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {/* <FormDescription>
+                    You can manage email addresses in your{" "}
+                    <Link href="/examples/forms">email settings</Link>.
+                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
