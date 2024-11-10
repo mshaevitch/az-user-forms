@@ -7,3 +7,9 @@ Run the development server:
 ```bash
 pnpm run dev
 ```
+
+Run type checker and linter:
+
+```bash
+pnpm typecheck && pnpm lint
+```
