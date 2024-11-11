@@ -1,7 +1,9 @@
 'use client'
 import { useState } from 'react'
-import { Button } from "@/components/ui/button"
 import { ModeToggle } from '@/components/ui/mode-toggle'
+import { Button } from "@/components/ui/button"
+import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Form,
   FormControl,
@@ -20,7 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Input } from '@/components/ui/input'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -35,6 +36,9 @@ const formSchema = z.object({
   department: z.string({
     required_error: "Department is required.",
   }),
+  notes: z.string().max(360, {
+    message: "Max 300 characters.",
+  }),
 })
 
 export default function Home() {
@@ -45,6 +49,7 @@ export default function Home() {
     defaultValues: {
       username: "",
       msg: "",
+      notes: "",
     },
   })
 
@@ -82,7 +87,7 @@ export default function Home() {
       )}
       <div className="flex min-h-screen items-center justify-center">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-96">
             <FormField
               control={form.control}
               name="username"
@@ -92,9 +97,6 @@ export default function Home() {
                   <FormControl>
                     <Input placeholder="Enter your name" {...field} />
                   </FormControl>
-                  {/* <FormDescription>
-                    Please enter your name.
-                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -108,9 +110,6 @@ export default function Home() {
                   <FormControl>
                     <Input placeholder="Enter a message" {...field} />
                   </FormControl>
-                  {/* <FormDescription>
-                    Please enter a message.
-                  </FormDescription> */}
                   <FormMessage />
                 </FormItem>
               )}
@@ -134,10 +133,23 @@ export default function Home() {
                       <SelectItem value="sales">Sales</SelectItem>
                     </SelectContent>
                   </Select>
-                  {/* <FormDescription>
-                    You can manage email addresses in your{" "}
-                    <Link href="/examples/forms">email settings</Link>.
-                  </FormDescription> */}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="notes"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Additional notes</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Enter additional notes"
+                      className="h-32"
+                      {...field}
+                    />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
