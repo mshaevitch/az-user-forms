@@ -21,33 +21,15 @@ import {
 } from '@/components/ui/select'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { CalendarIcon } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
-
-const formSchema = z.object({
-    firstName: z.string().min(2, {
-        message: "First name must be at least 2 characters.",
-    }),
-    lastName: z.string().min(2, {
-        message: "Last name must be at least 2 characters.",
-    }),
-    department: z.string({
-        required_error: "Department is required.",
-    }),
-    startDate: z.date({
-        required_error: "A start date is required.",
-    }),
-    notes: z.string().max(360, {
-        message: "Max 300 characters.",
-    }),
-})
+import { formSchema, NewUserType } from "@/schemas/new-user-schema"
 
 export function NewUserForm() {
-    const form = useForm<z.infer<typeof formSchema>>({
+    const form = useForm<NewUserType>({
       resolver: zodResolver(formSchema),
       defaultValues: {
         firstName: "",
@@ -56,7 +38,7 @@ export function NewUserForm() {
       },
     })
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: NewUserType) {
         console.log(values);
         // const name = values.username
         // const message = values.msg
