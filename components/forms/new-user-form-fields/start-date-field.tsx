@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { NewUserType } from '@/schemas/new-user-schema'
 import {
@@ -19,6 +20,9 @@ interface StartDateFieldProps {
 }
 
 export function StartDateField({ form }:  StartDateFieldProps) {
+
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <FormField
             control={form.control}
@@ -26,7 +30,7 @@ export function StartDateField({ form }:  StartDateFieldProps) {
             render={({ field }) => (
             <FormItem className="flex flex-col">
                 <FormLabel>Start date</FormLabel>
-                <Popover>
+                <Popover open={isOpen} onOpenChange={setIsOpen}>
                 <PopoverTrigger asChild>
                     <FormControl>
                     <Button
@@ -49,7 +53,10 @@ export function StartDateField({ form }:  StartDateFieldProps) {
                     <Calendar
                     mode="single"
                     selected={field.value}
-                    onSelect={field.onChange}
+                    onSelect={(e) => {
+                        field.onChange(e);
+                        setIsOpen(false);
+                    }}
                     initialFocus
                     />
                 </PopoverContent>
