@@ -7,40 +7,28 @@ import { NameFields } from "./new-user-form-fields/name-fields"
 import { DepartmentField } from "./new-user-form-fields/department-field"
 import { StartDateField } from "./new-user-form-fields/start-date-field"
 import { NotesField } from "./new-user-form-fields/notes-field"
+import { useState } from "react"
 
 export function NewUserForm() {
-    const form = useForm<NewUserType>({
-      resolver: zodResolver(formSchema),
-      defaultValues: {
-        firstName: "",
-        lastName: "",
-        notes: "",
-      },
-    })
 
-    async function onSubmit(values: NewUserType) {
-        console.log(values);
-        // const name = values.username
-        // const message = values.msg
-        // try {
-        //   const res = await fetch('/api/hello', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ name, message }),
-        //   })
-            
-        //   const data = await res.json();
-        //   setResponse(data.message);
-        // } catch (error) {
-        //   console.error('Error:', error)
-        //   setResponse('Error occurred while sending message');
-        // }
-    }
+  const [userInfo, setUserInfo] = useState('');
 
-    return (
-        <div className="flex min-h-screen items-center justify-center">
+  const form = useForm<NewUserType>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      notes: "",
+    },
+  })
+
+  async function onSubmit(values: NewUserType) {
+    setUserInfo(JSON.stringify(values));
+  }
+
+  return (
+      <div className="flex min-h-screen items-center justify-center">
+        {userInfo && (<div>{userInfo}</div>)}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-96">
             <NameFields form={form} />
@@ -51,5 +39,5 @@ export function NewUserForm() {
           </form>
         </Form>
       </div>
-    )
+  )
 }
