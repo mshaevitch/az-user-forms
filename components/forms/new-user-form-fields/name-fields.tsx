@@ -1,7 +1,13 @@
+import { UseFormReturn } from 'react-hook-form'
+import { NewUserType } from '@/schemas/new-user-schema'
 import { FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
-export function NameFields({ form }:  any) {
+interface NameFieldsProps {
+    form: UseFormReturn<NewUserType>
+}
+
+export function NameFields({ form }:  NameFieldsProps) {
     return (
         <div className='flex justify-between'>
               <FormField

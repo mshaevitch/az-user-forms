@@ -1,3 +1,5 @@
+import { UseFormReturn } from 'react-hook-form'
+import { NewUserType } from '@/schemas/new-user-schema'
 import {
     FormField,
     FormItem,
@@ -12,7 +14,11 @@ import { Calendar } from '@/components/ui/calendar'
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 
-export function StartDateField({ form }:  any) {
+interface StartDateFieldProps {
+    form: UseFormReturn<NewUserType>
+}
+
+export function StartDateField({ form }:  StartDateFieldProps) {
     return (
         <FormField
             control={form.control}

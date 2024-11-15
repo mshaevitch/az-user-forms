@@ -1,3 +1,5 @@
+import { UseFormReturn } from 'react-hook-form'
+import { NewUserType } from '@/schemas/new-user-schema'
 import {
     FormField,
     FormItem,
@@ -7,7 +9,11 @@ import {
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 
-export function NotesField({ form }:  any) {
+interface NotesFieldProps {
+    form: UseFormReturn<NewUserType>
+}
+
+export function NotesField({ form }:  NotesFieldProps) {
     return (
         <FormField
             control={form.control}

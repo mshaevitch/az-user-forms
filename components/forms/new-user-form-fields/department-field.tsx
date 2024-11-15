@@ -1,3 +1,5 @@
+import { UseFormReturn } from 'react-hook-form'
+import { NewUserType } from '@/schemas/new-user-schema'
 import {
     FormField,
     FormItem,
@@ -13,7 +15,11 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 
-export function DepartmentField({ form }:  any) {
+interface DepartmentFieldProps {
+    form: UseFormReturn<NewUserType>
+}
+
+export function DepartmentField({ form }:  DepartmentFieldProps) {
     return (
         <FormField
             control={form.control}
