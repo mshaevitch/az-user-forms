@@ -1,0 +1,14 @@
+{
+    "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+    "configurations": {
+        "az-user-forms": {
+        "appLocation": ".",
+        "apiLocation": "app/api",
+        "outputLocation": ".next",
+        "appBuildCommand": "pnpm run build",
+        "run": "pnpm run dev",
+        "appDevserverUrl": "http://localhost:3000",
+        "apiDevserverUrl": "http://localhost:3000"
+        }
+    }
+}
