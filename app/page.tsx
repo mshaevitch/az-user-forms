@@ -1,8 +1,8 @@
 'use client'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { NewUserForm } from '@/components/forms/new-user-form'
-import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
+import { LogOutButton } from '@/components/ui/log-out-button'
 
 export default function Home() {
   const [user, setUser] = useState('');
@@ -28,7 +28,7 @@ export default function Home() {
         <ModeToggle />
       </div>
       <div className="absolute top-6 left-6">
-        <Button>{user}</Button>
+        <LogOutButton user={user} />
       </div>
       {/* {response && (
         <div className="fixed top-32 left-1/2 -translate-x-1/2 w-full max-w-md p-4 bg-gray-800 rounded border border-gray-700">
