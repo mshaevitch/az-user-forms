@@ -26,6 +26,8 @@ export default function Home() {
     <main>
       <div className="absolute top-6 right-6">
         <ModeToggle />
+      </div>
+      <div className="absolute top-6 left-6">
         <Button>{user}</Button>
       </div>
       {/* {response && (
