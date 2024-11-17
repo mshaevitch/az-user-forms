@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { NewUserType } from '@/schemas/new-user-schema'

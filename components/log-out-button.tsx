@@ -1,5 +1,4 @@
-"use client"
-
+import { headers } from "next/headers"
 import * as React from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,11 +10,11 @@ import {
 import { LogOut } from "lucide-react"
 import Link from "next/link"
 
-interface LogOutButtonProps {
-  user: string
-}
+export default async function LogOutButton() {
+  const headersList = await headers()
+  const header = headersList.get('X-MS-CLIENT-PRINCIPAL')
+  const user = header ? JSON.parse(Buffer.from(header, 'base64').toString('ascii')).userDetails : "PLACEHOLDER"
 
-export function LogOutButton({ user }: LogOutButtonProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
